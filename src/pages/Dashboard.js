@@ -12,15 +12,15 @@ const Dashboard = () => {
   const getWelcomeMessage = (role) => {
     switch(role) {
       case 'Admin':
-        return 'Welcome, System Administrator';
+        return '';
       case 'Doctor':
-        return 'Welcome, Doctor';
+        return '';
       case 'Receptionist':
-        return 'Welcome, Clinic Receptionist';
+        return '';
       case 'InventoryManager':
-        return 'Welcome, Inventory Manager';
+        return '';
       case 'Patient':
-        return 'Welcome to Your Patient Portal';
+        return '';
       default:
         return 'Welcome';
     }

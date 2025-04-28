@@ -118,115 +118,154 @@ const DoctorDashboard = () => {
     });
   };
 
+  // Getting status color for badges
+  const getStatusColor = (status) => {
+    switch(status) {
+      case 'Waiting':
+        return 'danger';
+      case 'Confirmed':
+        return 'success';
+      case 'Ready':
+        return 'success';
+      case 'Scheduled':
+        return 'info';
+      default:
+        return 'secondary';
+    }
+  };
+
   return (
-    <div className="container-fluid py-4">
-      {/* Stats Cards - Keep existing metrics */}
-      <div className="row g-3 mb-4">
+    <div className="container-fluid py-4 bg-light">
+      <div className="row mb-4">
+        <div className="col-12">
+          <h2 className="fw-bold mb-0">Doctor Dashboard</h2>
+          <p className="text-muted">Welcome back, Dr. Smith</p>
+        </div>
+      </div>
+      
+      {/* Stats Cards - Modernized appearance */}
+      <div className="row g-4 mb-4">
         <div className="col-md-3">
-          <div className="card border-0 shadow-sm">
-            <div className="card-body">
-              <div className="d-flex justify-content-between align-items-center">
-                <div>
-                  <h6 className="text-muted mb-2">Today's Patients</h6>
-                  <h3 className="mb-0">{stats.todayPatients}</h3>
-                </div>
-                <div className="rounded-circle p-3" style={{ backgroundColor: 'rgba(227, 25, 55, 0.1)' }}>
-                  <i className="bi bi-people-fill" style={{ fontSize: '1.5rem', color: '#E31937' }}></i>
-                </div>
+          <div className="card border-0 shadow-sm rounded-3 h-100 overflow-hidden">
+            <div className="card-body position-relative p-4">
+              <div className="position-absolute top-0 end-0 mt-3 me-3 rounded-circle p-2" 
+                   style={{ backgroundColor: 'rgba(227, 25, 55, 0.1)' }}>
+                <i className="bi bi-people-fill fs-4 text-danger"></i>
+              </div>
+              <p className="text-muted fw-light mb-1">Today's Patients</p>
+              <h2 className="display-6 fw-bold mb-0">{stats.todayPatients}</h2>
+              <div className="text-success small mt-2">
+                <i className="bi bi-arrow-up"></i> 2 from yesterday
               </div>
             </div>
           </div>
         </div>
 
         <div className="col-md-3">
-          <div className="card border-0 shadow-sm">
-            <div className="card-body">
-              <div className="d-flex justify-content-between align-items-center">
-                <div>
-                  <h6 className="text-muted mb-2">Pending Records</h6>
-                  <h3 className="mb-0">{stats.pendingRecords}</h3>
-                </div>
-                <div className="rounded-circle p-3" style={{ backgroundColor: 'rgba(227, 25, 55, 0.1)' }}>
-                  <i className="bi bi-file-earmark-medical" style={{ fontSize: '1.5rem', color: '#E31937' }}></i>
-                </div>
+          <div className="card border-0 shadow-sm rounded-3 h-100 overflow-hidden">
+            <div className="card-body position-relative p-4">
+              <div className="position-absolute top-0 end-0 mt-3 me-3 rounded-circle p-2" 
+                   style={{ backgroundColor: 'rgba(227, 25, 55, 0.1)' }}>
+                <i className="bi bi-file-earmark-medical fs-4 text-danger"></i>
+              </div>
+              <p className="text-muted fw-light mb-1">Pending Records</p>
+              <h2 className="display-6 fw-bold mb-0">{stats.pendingRecords}</h2>
+              <div className="text-warning small mt-2">
+                <i className="bi bi-clock"></i> Requires attention
               </div>
             </div>
           </div>
         </div>
 
         <div className="col-md-3">
-          <div className="card border-0 shadow-sm">
-            <div className="card-body">
-              <div className="d-flex justify-content-between align-items-center">
-                <div>
-                  <h6 className="text-muted mb-2">Pending Diagnostics</h6>
-                  <h3 className="mb-0">{stats.pendingDiagnostics}</h3>
-                </div>
-                <div className="rounded-circle p-3" style={{ backgroundColor: 'rgba(227, 25, 55, 0.1)' }}>
-                  <i className="bi bi-file-earmark-text" style={{ fontSize: '1.5rem', color: '#E31937' }}></i>
-                </div>
+          <div className="card border-0 shadow-sm rounded-3 h-100 overflow-hidden">
+            <div className="card-body position-relative p-4">
+              <div className="position-absolute top-0 end-0 mt-3 me-3 rounded-circle p-2" 
+                   style={{ backgroundColor: 'rgba(227, 25, 55, 0.1)' }}>
+                <i className="bi bi-file-earmark-text fs-4 text-danger"></i>
+              </div>
+              <p className="text-muted fw-light mb-1">Pending Diagnostics</p>
+              <h2 className="display-6 fw-bold mb-0">{stats.pendingDiagnostics}</h2>
+              <div className="text-muted small mt-2">
+                <i className="bi bi-check2-circle"></i> All on schedule
               </div>
             </div>
           </div>
         </div>
 
         <div className="col-md-3">
-          <div className="card border-0 shadow-sm">
-            <div className="card-body">
-              <div className="d-flex justify-content-between align-items-center">
-                <div>
-                  <h6 className="text-muted mb-2">Pending Prescriptions</h6>
-                  <h3 className="mb-0">{stats.pendingPrescriptions}</h3>
-                </div>
-                <div className="rounded-circle p-3" style={{ backgroundColor: 'rgba(227, 25, 55, 0.1)' }}>
-                  <i className="bi bi-prescription" style={{ fontSize: '1.5rem', color: '#E31937' }}></i>
-                </div>
+          <div className="card border-0 shadow-sm rounded-3 h-100 overflow-hidden">
+            <div className="card-body position-relative p-4">
+              <div className="position-absolute top-0 end-0 mt-3 me-3 rounded-circle p-2" 
+                   style={{ backgroundColor: 'rgba(227, 25, 55, 0.1)' }}>
+                <i className="bi bi-prescription fs-4 text-danger"></i>
+              </div>
+              <p className="text-muted fw-light mb-1">Pending Prescriptions</p>
+              <h2 className="display-6 fw-bold mb-0">{stats.pendingPrescriptions}</h2>
+              <div className="text-danger small mt-2">
+                <i className="bi bi-exclamation-triangle"></i> Needs review
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="row mb-4">
+      <div className="row g-4 mb-4">
         {/* Today's Appointments Table */}
         <div className="col-lg-8">
-          <div className="card border-0 shadow-sm">
-            <div className="card-body">
-              <div className="d-flex justify-content-between align-items-center mb-4">
-                <h5 className="card-title mb-0">Today's Schedule</h5>
-                <Link to="/doctors/schedule" className="btn btn-sm" style={{ backgroundColor: '#E31937', color: 'white' }}>
-                  View Full Schedule
+          <div className="card border-0 shadow-sm rounded-3 h-100">
+            <div className="card-header bg-white border-0 py-3">
+              <div className="d-flex justify-content-between align-items-center">
+                <h5 className="card-title fw-bold mb-0">Today's Schedule</h5>
+                <Link to="/doctors/schedule" className="btn btn-sm btn-danger rounded-pill px-3">
+                  <i className="bi bi-calendar-week me-2"></i>View Full Schedule
                 </Link>
               </div>
+            </div>
+            <div className="card-body p-0">
               <div className="table-responsive">
-                <table className="table table-hover align-middle">
-                  <thead>
+                <table className="table table-hover align-middle mb-0">
+                  <thead className="bg-light">
                     <tr>
-                      <th>Time</th>
+                      <th className="ps-4">Time</th>
                       <th>Patient</th>
                       <th>Type</th>
                       <th>Status</th>
-                      <th>Actions</th>
+                      <th className="text-end pe-4">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     {todaysAppointments.map(apt => (
                       <tr key={apt.id}>
-                        <td>{apt.time}</td>
-                        <td>{apt.patient}</td>
-                        <td>{apt.type}</td>
+                        <td className="ps-4">
+                          <div className="d-flex align-items-center">
+                            <div className="me-3">
+                              <i className="bi bi-clock text-muted"></i>
+                            </div>
+                            <span className="fw-medium">{apt.time}</span>
+                          </div>
+                        </td>
                         <td>
-                          <span className={`badge bg-${apt.status === 'Waiting' ? 'danger' : 
-                                                      apt.status === 'Confirmed' ? 'success' : 'warning'}`}>
+                          <div className="d-flex align-items-center">
+                            <div className="avatar-circle me-2 bg-light text-primary d-flex align-items-center justify-content-center" 
+                                 style={{ width: '36px', height: '36px', borderRadius: '50%' }}>
+                              {apt.patient.charAt(0)}
+                            </div>
+                            <span>{apt.patient}</span>
+                          </div>
+                        </td>
+                        <td><span className="text-muted">{apt.type}</span></td>
+                        <td>
+                          <span className={`badge text-bg-${getStatusColor(apt.status)} rounded-pill px-3 py-2`}>
                             {apt.status}
                           </span>
                         </td>
-                        <td>
+                        <td className="text-end pe-4">
                           <button 
-                            className="btn btn-sm" 
-                            style={{ backgroundColor: '#E31937', color: 'white' }}
+                            className="btn btn-sm btn-outline-danger rounded-pill px-3"
                             onClick={() => handleStartSession(apt)}
                           >
+                            <i className="bi bi-play-fill me-1"></i>
                             Start Session
                           </button>
                         </td>
@@ -241,42 +280,58 @@ const DoctorDashboard = () => {
 
         {/* Upcoming Teleconsultations */}
         <div className="col-lg-4">
-          <div className="card border-0 shadow-sm">
+          <div className="card border-0 shadow-sm rounded-3 h-100">
+            <div className="card-header bg-white border-0 py-3">
+              <h5 className="card-title fw-bold mb-0">
+                <i className="bi bi-camera-video me-2 text-danger"></i>
+                Upcoming Teleconsultations
+              </h5>
+            </div>
             <div className="card-body">
-              <h5 className="card-title mb-4">Upcoming Teleconsultations</h5>
               {upcomingTeleconsults.length > 0 ? (
-                upcomingTeleconsults.map(consult => (
-                  <div key={consult.id} className="consultation-card p-3 mb-3 border rounded">
-                    <div className="d-flex justify-content-between align-items-start">
-                      <div>
-                        <h6 className="mb-1">{consult.patientName}</h6>
-                        <p className="mb-1 text-muted">
-                          <i className="bi bi-calendar me-2"></i>
-                          {new Date(consult.date).toLocaleDateString()} at {consult.time}
-                        </p>
-                        <p className="mb-0 small">{consult.concern}</p>
+                <div className="d-flex flex-column gap-3">
+                  {upcomingTeleconsults.map(consult => (
+                    <div key={consult.id} className="p-3 border rounded-3 bg-white shadow-sm position-relative">
+                      <div className="position-absolute top-0 end-0 mt-2 me-2">
+                        <span className={`badge text-bg-${getStatusColor(consult.status)} rounded-pill`}>
+                          {consult.status}
+                        </span>
+                      </div>
+                      <div className="d-flex align-items-start">
+                        <div className="avatar-circle me-3 bg-danger text-white d-flex align-items-center justify-content-center" 
+                             style={{ width: '40px', height: '40px', borderRadius: '50%', flexShrink: 0 }}>
+                          {consult.patientName.charAt(0)}
+                        </div>
+                        <div>
+                          <h6 className="mb-1 fw-bold">{consult.patientName}</h6>
+                          <p className="mb-1 text-muted small">
+                            <i className="bi bi-calendar me-1"></i>
+                            {new Date(consult.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                            <i className="bi bi-clock ms-2 me-1"></i>
+                            {consult.time}
+                          </p>
+                          <p className="mb-0 small text-truncate">{consult.concern}</p>
+                        </div>
                       </div>
                       {consult.status === 'Ready' && (
-                        <a 
-                          href={consult.meetingLink} 
-                          className="btn btn-sm" 
-                          style={{ backgroundColor: '#E31937', color: 'white' }}
-                        >
-                          <i className="bi bi-camera-video-fill me-2"></i>Join
-                        </a>
+                        <div className="mt-3 text-end">
+                          <a 
+                            href={consult.meetingLink} 
+                            className="btn btn-sm btn-success rounded-pill px-3"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <i className="bi bi-camera-video-fill me-1"></i>Join Now
+                          </a>
+                        </div>
                       )}
                     </div>
-                    <div className="mt-2">
-                      <span className={`badge bg-${consult.status === 'Ready' ? 'success' : 'primary'}`}>
-                        {consult.status}
-                      </span>
-                    </div>
-                  </div>
-                ))
+                  ))}
+                </div>
               ) : (
-                <div className="text-center py-4">
+                <div className="text-center py-5">
                   <i className="bi bi-calendar-x text-muted fs-1"></i>
-                  <p className="mt-2 text-muted">No upcoming teleconsultations</p>
+                  <p className="mt-3 text-muted">No upcoming teleconsultations</p>
                 </div>
               )}
             </div>
@@ -284,100 +339,138 @@ const DoctorDashboard = () => {
         </div>
       </div>
 
+      {/* Patient Session Modal with improved styling */}
       {showSessionModal && selectedPatient && (
         <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
-          <div className="modal-dialog modal-lg">
-            <div className="modal-content">
-              <div className="modal-header" style={{ backgroundColor: '#E31937', color: 'white' }}>
-                <h5 className="modal-title">Patient Session</h5>
+          <div className="modal-dialog modal-lg modal-dialog-centered">
+            <div className="modal-content border-0 shadow-lg rounded-3 overflow-hidden">
+              <div className="modal-header bg-danger text-white">
+                <h5 className="modal-title">
+                  <i className="bi bi-clipboard-pulse me-2"></i>
+                  Patient Session
+                </h5>
                 <button type="button" className="btn-close btn-close-white" onClick={() => setShowSessionModal(false)}></button>
               </div>
-              <div className="modal-body">
-                <div className="row mb-4">
+              <div className="modal-body p-4">
+                <div className="row g-4 mb-4">
                   <div className="col-md-6">
-                    <h6 className="mb-3">Patient Information</h6>
-                    <p className="mb-1"><strong>Name:</strong> {selectedPatient.patient}</p>
-                    <p className="mb-1"><strong>Appointment Type:</strong> {selectedPatient.type}</p>
-                    <p className="mb-0"><strong>Time:</strong> {selectedPatient.time}</p>
+                    <div className="p-3 border rounded-3 bg-light h-100">
+                      <h6 className="mb-3 border-bottom pb-2 fw-bold">
+                        <i className="bi bi-person me-2 text-danger"></i>
+                        Patient Information
+                      </h6>
+                      <div className="mb-3">
+                        <p className="small text-muted mb-1">Name</p>
+                        <p className="mb-0 fw-medium">{selectedPatient.patient}</p>
+                      </div>
+                      <div className="mb-3">
+                        <p className="small text-muted mb-1">Appointment Type</p>
+                        <p className="mb-0 fw-medium">{selectedPatient.type}</p>
+                      </div>
+                      <div>
+                        <p className="small text-muted mb-1">Scheduled Time</p>
+                        <p className="mb-0 fw-medium">{selectedPatient.time}</p>
+                      </div>
+                    </div>
                   </div>
+                  
                   <div className="col-md-6">
-                    <h6 className="mb-3">Vital Signs</h6>
-                    <div className="row g-2">
-                      <div className="col-6">
-                        <label className="form-label small">Temperature (°C)</label>
-                        <input
-                          type="text"
-                          className="form-control form-control-sm"
-                          value={vitalSigns.temperature}
-                          onChange={(e) => setVitalSigns({...vitalSigns, temperature: e.target.value})}
-                        />
-                      </div>
-                      <div className="col-6">
-                        <label className="form-label small">Blood Pressure</label>
-                        <input
-                          type="text"
-                          className="form-control form-control-sm"
-                          placeholder="120/80"
-                          value={vitalSigns.bloodPressure}
-                          onChange={(e) => setVitalSigns({...vitalSigns, bloodPressure: e.target.value})}
-                        />
-                      </div>
-                      <div className="col-6">
-                        <label className="form-label small">Heart Rate (bpm)</label>
-                        <input
-                          type="text"
-                          className="form-control form-control-sm"
-                          value={vitalSigns.heartRate}
-                          onChange={(e) => setVitalSigns({...vitalSigns, heartRate: e.target.value})}
-                        />
-                      </div>
-                      <div className="col-6">
-                        <label className="form-label small">Respiratory Rate</label>
-                        <input
-                          type="text"
-                          className="form-control form-control-sm"
-                          value={vitalSigns.respiratoryRate}
-                          onChange={(e) => setVitalSigns({...vitalSigns, respiratoryRate: e.target.value})}
-                        />
+                    <div className="p-3 border rounded-3 bg-light h-100">
+                      <h6 className="mb-3 border-bottom pb-2 fw-bold">
+                        <i className="bi bi-heart-pulse me-2 text-danger"></i>
+                        Vital Signs
+                      </h6>
+                      <div className="row g-3">
+                        <div className="col-6">
+                          <label className="form-label small">Temperature (°C)</label>
+                          <div className="input-group input-group-sm">
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={vitalSigns.temperature}
+                              onChange={(e) => setVitalSigns({...vitalSigns, temperature: e.target.value})}
+                            />
+                            <span className="input-group-text bg-white">°C</span>
+                          </div>
+                        </div>
+                        <div className="col-6">
+                          <label className="form-label small">Blood Pressure</label>
+                          <input
+                            type="text"
+                            className="form-control form-control-sm"
+                            placeholder="120/80"
+                            value={vitalSigns.bloodPressure}
+                            onChange={(e) => setVitalSigns({...vitalSigns, bloodPressure: e.target.value})}
+                          />
+                        </div>
+                        <div className="col-6">
+                          <label className="form-label small">Heart Rate</label>
+                          <div className="input-group input-group-sm">
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={vitalSigns.heartRate}
+                              onChange={(e) => setVitalSigns({...vitalSigns, heartRate: e.target.value})}
+                            />
+                            <span className="input-group-text bg-white">bpm</span>
+                          </div>
+                        </div>
+                        <div className="col-6">
+                          <label className="form-label small">Respiratory Rate</label>
+                          <div className="input-group input-group-sm">
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={vitalSigns.respiratoryRate}
+                              onChange={(e) => setVitalSigns({...vitalSigns, respiratoryRate: e.target.value})}
+                            />
+                            <span className="input-group-text bg-white">/min</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div className="mb-4">
-                  <h6 className="mb-3">Session Notes</h6>
+                  <h6 className="mb-3 fw-bold">
+                    <i className="bi bi-journal-text me-2 text-danger"></i>
+                    Session Notes
+                  </h6>
                   <textarea
                     className="form-control"
-                    rows="4"
+                    rows="5"
                     value={sessionNotes}
                     onChange={(e) => setSessionNotes(e.target.value)}
-                    placeholder="Enter consultation notes..."
+                    placeholder="Enter consultation notes, observations, diagnosis, etc..."
                   ></textarea>
                 </div>
 
-                <div className="row">
+                <div className="row g-3">
                   <div className="col-md-6">
                     <button 
-                      className="btn btn-outline-primary w-100 mb-2"
+                      className="btn btn-light border w-100 py-2"
                       onClick={handleUpdateMedicalRecord}
                     >
-                      <i className="bi bi-file-earmark-medical me-2"></i>Update Medical Record
+                      <i className="bi bi-file-earmark-medical text-primary me-2"></i>
+                      Update Medical Record
                     </button>
                   </div>
                   <div className="col-md-6">
                     <button 
-                      className="btn btn-outline-primary w-100 mb-2"
+                      className="btn btn-light border w-100 py-2"
                       onClick={handleCreatePrescription}
                     >
-                      <i className="bi bi-prescription me-2"></i>Create Prescription
+                      <i className="bi bi-prescription text-primary me-2"></i>
+                      Create Prescription
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="modal-footer">
+              <div className="modal-footer border-top">
                 <button 
                   type="button" 
-                  className="btn btn-secondary" 
+                  className="btn btn-outline-secondary" 
                   onClick={() => setShowSessionModal(false)}
                 >
                   Cancel Session
@@ -387,6 +480,7 @@ const DoctorDashboard = () => {
                   className="btn btn-success"
                   onClick={handleEndSession}
                 >
+                  <i className="bi bi-check2 me-2"></i>
                   Complete Session
                 </button>
               </div>

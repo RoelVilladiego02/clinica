@@ -72,7 +72,7 @@ const Layout = () => {
               { to: '/analytics/patients', label: 'Patient Demographics' },
               { to: '/analytics/visits', label: 'Visit Trends' },
               { to: '/analytics/doctors', label: 'Doctor Performance' },
-              // { to: '/analytics/revenue', label: 'Revenue Analysis' }
+              { to: '/analytics/revenue', label: 'Revenue Analysis' }
             ]
           },
           { 

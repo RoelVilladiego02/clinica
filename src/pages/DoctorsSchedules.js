@@ -4,6 +4,8 @@ const DoctorsSchedules = () => {
   const [selectedDoctor, setSelectedDoctor] = useState('all');
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
 
   const doctors = [
     { id: 1, name: 'Dr. John Smith', specialization: 'General Medicine', schedule: '9:00 AM - 5:00 PM' },
@@ -56,6 +58,11 @@ const DoctorsSchedules = () => {
     return matchesDoctor && matchesSearch;
   });
 
+  const handleViewDetails = (apt) => {
+    setSelectedAppointment(apt);
+    setShowModal(true);
+  };
+
   return (
     <div className="container-fluid py-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -63,9 +70,6 @@ const DoctorsSchedules = () => {
           <h4 className="mb-1">Doctor Schedules</h4>
           <p className="text-muted mb-0">View and manage all doctor appointments</p>
         </div>
-        <button className="btn" style={{ backgroundColor: '#E31937', color: 'white' }}>
-          <i className="bi bi-plus-circle me-2"></i>New Appointment
-        </button>
       </div>
 
       <div className="card border-0 shadow-sm">
@@ -161,14 +165,12 @@ const DoctorsSchedules = () => {
                         </span>
                       </td>
                       <td>
-                        <div className="btn-group">
-                          <button className="btn btn-sm" style={{ backgroundColor: '#E31937', color: 'white' }}>
-                            Check In
-                          </button>
-                          <button className="btn btn-sm btn-outline-secondary">
-                            Details
-                          </button>
-                        </div>
+                        <button 
+                          className="btn btn-sm btn-outline-secondary"
+                          onClick={() => handleViewDetails(apt)}
+                        >
+                          View Details
+                        </button>
                       </td>
                     </tr>
                   );
@@ -186,6 +188,60 @@ const DoctorsSchedules = () => {
           )}
         </div>
       </div>
+
+      {/* Appointment Details Modal */}
+      {showModal && selectedAppointment && (
+        <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
+          <div className="modal-dialog modal-lg">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Appointment Details</h5>
+                <button 
+                  type="button" 
+                  className="btn-close" 
+                  onClick={() => setShowModal(false)}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <div className="row">
+                  <div className="col-md-6">
+                    <h6 className="text-muted mb-3">Appointment Information</h6>
+                    <p className="mb-1"><strong>Time:</strong> {selectedAppointment.time}</p>
+                    <p className="mb-1"><strong>Patient:</strong> {selectedAppointment.patientName}</p>
+                    <p className="mb-1"><strong>Concern:</strong> {selectedAppointment.concern}</p>
+                    <p className="mb-1"><strong>Type:</strong> {selectedAppointment.type}</p>
+                    <p className="mb-0">
+                      <strong>Status:</strong> 
+                      <span className={`badge ms-2 ${
+                        selectedAppointment.status === 'Checked In' ? 'bg-success' :
+                        selectedAppointment.status === 'Waiting' ? 'bg-warning' :
+                        'bg-primary'
+                      }`}>
+                        {selectedAppointment.status}
+                      </span>
+                    </p>
+                  </div>
+                  <div className="col-md-6">
+                    <h6 className="text-muted mb-3">Doctor Information</h6>
+                    <p className="mb-1"><strong>Doctor:</strong> {doctors.find(d => d.id === selectedAppointment.doctorId)?.name}</p>
+                    <p className="mb-1"><strong>Specialization:</strong> {doctors.find(d => d.id === selectedAppointment.doctorId)?.specialization}</p>
+                    <p className="mb-0"><strong>Schedule:</strong> {doctors.find(d => d.id === selectedAppointment.doctorId)?.schedule}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button 
+                  type="button" 
+                  className="btn btn-secondary"
+                  onClick={() => setShowModal(false)}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

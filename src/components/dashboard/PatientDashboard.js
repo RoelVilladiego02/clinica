@@ -59,84 +59,62 @@ const PatientDashboard = () => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        {/* Upcoming Appointments Card */}
-        <div className="col-md-6">
-          <div className="card dashboard-card">
-            <div className="card-body">
-              <h5 className="card-title">Upcoming Appointments</h5>
-              {upcomingAppointments.map(apt => (
-                <div key={apt.id} className="mb-3 p-3 border rounded">
-                  <h6>{apt.date} at {apt.time}</h6>
-                  <p className="mb-1">Doctor: {apt.doctor}</p>
-                  <p className="mb-1">Type: {apt.type}</p>
-                  <Link to="/appointments" className="btn btn-sm btn-primary mt-2">
-                    View Details
-                  </Link>
+    <div className="container-fluid py-4 bg-light">
+      <div className="row g-4">
+        {/* Welcome Banner */}
+        <div className="col-12">
+          <div className="card border-0 bg-primary text-white shadow rounded-lg">
+            <div className="card-body p-4">
+              <div className="d-flex justify-content-between align-items-center">
+                <div>
+                  <h2 className="fw-bold mb-1">Welcome Back!</h2>
+                  <p className="mb-0">Your health dashboard is updated and ready for you.</p>
                 </div>
-              ))}
-              <Link to="/appointments/new" className="btn btn-primary">
-                Schedule New Appointment
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Recent Prescriptions Card */}
-        <div className="col-md-6">
-          <div className="card dashboard-card">
-            <div className="card-body">
-              <h5 className="card-title">Recent Prescriptions</h5>
-              {recentPrescriptions.map(prescription => (
-                <div key={prescription.id} className="mb-3 p-3 border rounded">
-                  <h6>{prescription.medication}</h6>
-                  <p className="mb-1">Dosage: {prescription.dosage}</p>
-                  <p className="mb-1">Date: {prescription.date}</p>
+                <div className="d-none d-md-block">
+                  <i className="bi bi-heart-pulse fs-1"></i>
                 </div>
-              ))}
-              <Link to="/prescriptions" className="btn btn-primary">
-                View All Prescriptions
-              </Link>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Upcoming Teleconsultations Card */}
         <div className="col-md-6">
-          <div className="card border-0 shadow-sm">
-            <div className="card-body">
-              <div className="d-flex justify-content-between align-items-center mb-3">
-                <h5 className="card-title mb-0">Upcoming Teleconsultations</h5>
+          <div className="card border-0 shadow-sm rounded-lg h-100">
+            <div className="card-header bg-white border-0 pt-4 pb-0">
+              <div className="d-flex justify-content-between align-items-center">
+                <h5 className="card-title fw-bold mb-0">Upcoming Teleconsultations</h5>
                 <button 
-                  className="btn" 
+                  className="btn btn-sm rounded-pill px-3" 
                   style={{ backgroundColor: '#E31937', color: 'white' }}
                   onClick={() => setShowBookingModal(true)}
                 >
                   <i className="bi bi-camera-video me-2"></i>Book Teleconsult
                 </button>
               </div>
+            </div>
+            <div className="card-body">
               <div className="upcoming-consultations">
                 {upcomingTeleconsults.length > 0 ? (
                   upcomingTeleconsults.map(consult => (
-                    <div key={consult.id} className="consultation-card p-3 mb-3 border rounded">
+                    <div key={consult.id} className="consultation-card p-3 mb-3 border-0 shadow-sm rounded-lg bg-white">
                       <div className="d-flex justify-content-between align-items-start">
                         <div>
-                          <h6 className="mb-1">{consult.doctor}</h6>
-                          <p className="mb-1 text-muted">
+                          <h6 className="mb-1 fw-bold">{consult.doctor}</h6>
+                          <p className="mb-1 text-muted small">
                             <i className="bi bi-calendar me-2"></i>
                             {new Date(consult.date).toLocaleDateString()} at {consult.time}
                           </p>
-                          <p className="mb-0 small">{consult.concern}</p>
+                          <p className="mb-0 small text-secondary">{consult.concern}</p>
                         </div>
                         {consult.status === 'Ready' && (
-                          <a href={consult.meetingLink} className="btn btn-success btn-sm">
-                            <i className="bi bi-camera-video-fill me-2"></i>Join Now
+                          <a href={consult.meetingLink} className="btn btn-success btn-sm rounded-pill">
+                            <i className="bi bi-camera-video-fill me-1"></i>Join Now
                           </a>
                         )}
                       </div>
                       <div className="mt-2">
-                        <span className={`badge bg-${
+                        <span className={`badge rounded-pill bg-${
                           consult.status === 'Ready' ? 'success' :
                           consult.status === 'Scheduled' ? 'primary' :
                           'secondary'
@@ -150,6 +128,9 @@ const PatientDashboard = () => {
                   <div className="text-center text-muted py-4">
                     <i className="bi bi-calendar-x fs-1"></i>
                     <p className="mt-2">No upcoming teleconsultations</p>
+                    <button className="btn btn-outline-primary rounded-pill" onClick={() => setShowBookingModal(true)}>
+                      Schedule Your First Consultation
+                    </button>
                   </div>
                 )}
               </div>
@@ -157,27 +138,126 @@ const PatientDashboard = () => {
           </div>
         </div>
 
-        <div className="col-md-12">
-          <div className="card dashboard-card">
+        {/* Upcoming Appointments Card */}
+        <div className="col-md-6">
+          <div className="card border-0 shadow-sm rounded-lg h-100">
+            <div className="card-header bg-white border-0 pt-4 pb-0">
+              <div className="d-flex justify-content-between align-items-center">
+                <h5 className="card-title fw-bold mb-0">Upcoming Appointments</h5>
+                <Link to="/appointments/new" className="btn btn-outline-primary btn-sm rounded-pill px-3">
+                  <i className="bi bi-plus-circle me-1"></i> New
+                </Link>
+              </div>
+            </div>
             <div className="card-body">
-              <h5 className="card-title">Quick Actions</h5>
+              {upcomingAppointments.length > 0 ? (
+                upcomingAppointments.map(apt => (
+                  <div key={apt.id} className="mb-3 p-3 border-0 shadow-sm rounded-lg bg-white">
+                    <div className="d-flex align-items-center">
+                      <div className="rounded-circle bg-primary bg-opacity-10 p-3 me-3">
+                        <i className="bi bi-calendar-check text-primary"></i>
+                      </div>
+                      <div>
+                        <h6 className="fw-bold mb-1">{apt.date} at {apt.time}</h6>
+                        <p className="mb-0 small text-secondary">
+                          {apt.doctor} · {apt.type}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="mt-3 text-end">
+                      <Link to="/appointments" className="btn btn-sm btn-outline-primary rounded-pill">
+                        View Details
+                      </Link>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center text-muted py-4">
+                  <i className="bi bi-calendar fs-1"></i>
+                  <p className="mt-2">No upcoming appointments</p>
+                  <Link to="/appointments/new" className="btn btn-outline-primary rounded-pill">
+                    Schedule Your First Appointment
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Recent Prescriptions Card */}
+        <div className="col-md-6">
+          <div className="card border-0 shadow-sm rounded-lg h-100">
+            <div className="card-header bg-white border-0 pt-4 pb-0">
+              <div className="d-flex justify-content-between align-items-center">
+                <h5 className="card-title fw-bold mb-0">Recent Prescriptions</h5>
+                <Link to="/prescriptions" className="btn btn-outline-primary btn-sm rounded-pill px-3">
+                  View All
+                </Link>
+              </div>
+            </div>
+            <div className="card-body">
+              {recentPrescriptions.length > 0 ? (
+                recentPrescriptions.map(prescription => (
+                  <div key={prescription.id} className="mb-3 p-3 border-0 shadow-sm rounded-lg bg-white">
+                    <div className="d-flex align-items-center">
+                      <div className="rounded-circle bg-info bg-opacity-10 p-3 me-3">
+                        <i className="bi bi-capsule text-info"></i>
+                      </div>
+                      <div>
+                        <h6 className="fw-bold mb-1">{prescription.medication}</h6>
+                        <p className="mb-0 small text-secondary">
+                          {prescription.dosage} · Prescribed on {prescription.date}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center text-muted py-4">
+                  <i className="bi bi-file-earmark-medical fs-1"></i>
+                  <p className="mt-2">No recent prescriptions</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Actions Card */}
+        <div className="col-md-6">
+          <div className="card border-0 shadow-sm rounded-lg h-100">
+            <div className="card-header bg-white border-0 pt-4 pb-0">
+              <h5 className="card-title fw-bold mb-0">Quick Actions</h5>
+            </div>
+            <div className="card-body">
               <div className="row g-3">
                 <div className="col-md-4">
-                  <Link to="/medical-records" className="btn btn-outline-primary w-100">
-                    <i className="bi bi-file-medical me-2"></i>
-                    Medical Records
+                  <Link to="/medical-records" className="card border-0 shadow-sm h-100 text-decoration-none">
+                    <div className="card-body text-center py-4">
+                      <div className="rounded-circle bg-primary bg-opacity-10 p-3 mx-auto mb-3" style={{ width: 'fit-content' }}>
+                        <i className="bi bi-file-medical fs-4 text-primary"></i>
+                      </div>
+                      <h6 className="mb-0 text-primary">Medical Records</h6>
+                    </div>
                   </Link>
                 </div>
                 <div className="col-md-4">
-                  <Link to="/profile" className="btn btn-outline-primary w-100">
-                    <i className="bi bi-person me-2"></i>
-                    Update Profile
+                  <Link to="/profile" className="card border-0 shadow-sm h-100 text-decoration-none">
+                    <div className="card-body text-center py-4">
+                      <div className="rounded-circle bg-success bg-opacity-10 p-3 mx-auto mb-3" style={{ width: 'fit-content' }}>
+                        <i className="bi bi-person fs-4 text-success"></i>
+                      </div>
+                      <h6 className="mb-0 text-success">Update Profile</h6>
+                    </div>
                   </Link>
                 </div>
                 <div className="col-md-4">
-                  <Link to="/billing-history" className="btn btn-outline-primary w-100">
-                    <i className="bi bi-receipt me-2"></i>
-                    View Bills
+                  <Link to="/billing-history" className="card border-0 shadow-sm h-100 text-decoration-none">
+                    <div className="card-body text-center py-4">
+                      <div className="rounded-circle bg-warning bg-opacity-10 p-3 mx-auto mb-3" style={{ width: 'fit-content' }}>
+                        <i className="bi bi-receipt fs-4 text-warning"></i>
+                      </div>
+                      <h6 className="mb-0 text-warning">View Bills</h6>
+                    </div>
                   </Link>
                 </div>
               </div>
@@ -190,17 +270,17 @@ const PatientDashboard = () => {
       {showBookingModal && (
         <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
           <div className="modal-dialog modal-lg">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Book Teleconsultation</h5>
-                <button type="button" className="btn-close" onClick={() => setShowBookingModal(false)}></button>
+            <div className="modal-content border-0 shadow-lg rounded-lg overflow-hidden">
+              <div className="modal-header border-0 bg-primary text-white">
+                <h5 className="modal-title fw-bold">Book Teleconsultation</h5>
+                <button type="button" className="btn-close btn-close-white" onClick={() => setShowBookingModal(false)}></button>
               </div>
               <form onSubmit={handleBooking}>
-                <div className="modal-body">
-                  <div className="mb-3">
-                    <label className="form-label">Select Doctor</label>
+                <div className="modal-body p-4">
+                  <div className="mb-4">
+                    <label className="form-label fw-semibold">Select Doctor</label>
                     <select 
-                      className="form-select"
+                      className="form-select form-select-lg border-0 shadow-sm"
                       value={bookingData.doctorId}
                       onChange={(e) => setBookingData({...bookingData, doctorId: e.target.value})}
                       required
@@ -214,12 +294,12 @@ const PatientDashboard = () => {
                     </select>
                   </div>
 
-                  <div className="row mb-3">
-                    <div className="col-md-6">
-                      <label className="form-label">Date</label>
+                  <div className="row mb-4">
+                    <div className="col-md-6 mb-3 mb-md-0">
+                      <label className="form-label fw-semibold">Date</label>
                       <input
                         type="date"
-                        className="form-control"
+                        className="form-control form-control-lg border-0 shadow-sm"
                         min={new Date().toISOString().split('T')[0]}
                         value={bookingData.date}
                         onChange={(e) => setBookingData({...bookingData, date: e.target.value})}
@@ -227,9 +307,9 @@ const PatientDashboard = () => {
                       />
                     </div>
                     <div className="col-md-6">
-                      <label className="form-label">Time</label>
+                      <label className="form-label fw-semibold">Time</label>
                       <select 
-                        className="form-select"
+                        className="form-select form-select-lg border-0 shadow-sm"
                         value={bookingData.time}
                         onChange={(e) => setBookingData({...bookingData, time: e.target.value})}
                         required
@@ -242,25 +322,26 @@ const PatientDashboard = () => {
                     </div>
                   </div>
 
-                  <div className="mb-3">
-                    <label className="form-label">Reason for Consultation</label>
+                  <div className="mb-4">
+                    <label className="form-label fw-semibold">Reason for Consultation</label>
                     <textarea
-                      className="form-control"
+                      className="form-control border-0 shadow-sm"
                       rows="3"
                       value={bookingData.concern}
                       onChange={(e) => setBookingData({...bookingData, concern: e.target.value})}
                       required
+                      placeholder="Please describe your symptoms or reason for consultation"
                     ></textarea>
                   </div>
 
-                  <div className="mb-3">
-                    <label className="form-label">Payment Method</label>
+                  <div className="mb-2">
+                    <label className="form-label fw-semibold">Payment Method</label>
                     <div className="row g-3">
                       {['Credit Card', 'GCash', 'PayMaya'].map(method => (
                         <div key={method} className="col-md-4">
                           <div 
-                            className={`card p-3 text-center cursor-pointer ${
-                              bookingData.paymentMethod === method ? 'border-primary' : ''
+                            className={`card h-100 border-0 shadow-sm p-3 text-center cursor-pointer ${
+                              bookingData.paymentMethod === method ? 'bg-primary bg-opacity-10' : ''
                             }`}
                             onClick={() => setBookingData({...bookingData, paymentMethod: method})}
                             style={{ cursor: 'pointer' }}
@@ -268,20 +349,26 @@ const PatientDashboard = () => {
                             <i className={`bi bi-${
                               method === 'Credit Card' ? 'credit-card' :
                               method === 'GCash' ? 'wallet2' : 'phone'
-                            } fs-3 mb-2`}></i>
-                            {method}
+                            } fs-3 mb-2 ${bookingData.paymentMethod === method ? 'text-primary' : ''}`}></i>
+                            <h6 className={`mb-0 ${bookingData.paymentMethod === method ? 'text-primary' : ''}`}>{method}</h6>
                           </div>
                         </div>
                       ))}
                     </div>
                   </div>
                 </div>
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-secondary" onClick={() => setShowBookingModal(false)}>
+                <div className="modal-footer border-0 bg-light p-4">
+                  <button type="button" className="btn btn-lg btn-outline-secondary px-4 rounded-pill" onClick={() => setShowBookingModal(false)}>
                     Cancel
                   </button>
-                  <button type="submit" className="btn btn-primary">
-                    Confirm Booking (₱{doctors.find(d => d.id === Number(bookingData.doctorId))?.fee || 0})
+                  <button 
+                    type="submit" 
+                    className="btn btn-lg btn-primary px-4 rounded-pill"
+                    disabled={!bookingData.doctorId || !bookingData.date || !bookingData.time || !bookingData.concern || !bookingData.paymentMethod}
+                  >
+                    Confirm Booking {bookingData.doctorId && <span className="ms-1">
+                      (₱{doctors.find(d => d.id === Number(bookingData.doctorId))?.fee || 0})
+                    </span>}
                   </button>
                 </div>
               </form>
