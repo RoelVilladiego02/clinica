@@ -94,7 +94,7 @@ const Login = () => {
                 </div>
 
                 <div className="mb-4">
-                  <label className="form-label fw-bold">Login As</label>
+                  <label className="form-label fw-bold">Login As [FOR TESTING PURPOSES ONLY]</label>
                   <select 
                     className="form-select"
                     value={formData.role}
